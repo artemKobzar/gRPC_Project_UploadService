@@ -1,0 +1,64 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcService";
+
+package movie;
+
+service MovieCrud {
+	rpc CreateMovie(CreateMovieRequest) returns (CreateMovieResponse){}
+	rpc GetMovie(GetMovieRequest) returns (GetMovieResponse){}
+	rpc GetAllMovie(GetAllMovieRequest) returns (GetAllMovieResponse){}
+	rpc GetAllMovieStream(stream GetMovieRequest) returns (MultyGetMovieResponse){}
+	rpc UpdateMovie(UpdateMovieRequest) returns (UpdateMovieResponse){}
+	rpc DeleteMovie(DeleteMovieRequest) returns (DeleteMovieResponse){}
+}
+
+message CreateMovieRequest{
+	string title = 1;
+	string description = 2;
+	string releaseDate = 3;
+}
+message CreateMovieResponse{
+	int32 id = 1;
+}
+
+message GetMovieRequest{
+	int32 id = 1;
+}
+message GetMovieResponse{
+	string title = 1;
+	string description = 2;
+	string releaseDate = 3;
+}
+
+message GetAllMovieRequest{
+
+}
+message GetListMovieResponse{
+	string title = 1;
+	string releaseDate = 2;
+}
+message GetAllMovieResponse{
+	repeated GetListMovieResponse Movies = 1;
+}
+
+message UpdateMovieRequest{
+	int32 id = 1;
+	string title = 2;
+	string description = 3;
+	string releaseDate = 4;
+}
+message UpdateMovieResponse{
+	int32 id = 1;
+}
+
+message DeleteMovieRequest{
+	int32 id =1;
+}
+message DeleteMovieResponse{
+	int32 id = 1;
+}
+
+message MultyGetMovieResponse{
+	repeated GetMovieResponse movie = 1;
+}

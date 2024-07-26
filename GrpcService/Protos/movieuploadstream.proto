@@ -1,0 +1,28 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcService";
+
+
+package movieuploadstream;
+
+service FileServer {
+	rpc FileUpload(stream FileUploadRequest) returns (FileUploadResponse){}
+	rpc FileDownload(FileInfo) returns (stream FileUploadRequest){}
+	rpc FileDownloadFromDb(FileInfo) returns (stream FileUploadRequest){}
+}
+
+message FileInfo{
+	string fileName = 1;
+	string fileExtention = 2;
+}
+message FileUploadRequest{
+	bytes data = 1;
+	int64 fileSize = 2;
+	int32 readedByte = 3;
+	FileInfo info = 4;
+}
+message FileUploadResponse{
+	string success = 1;
+}
+
+
